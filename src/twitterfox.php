@@ -194,9 +194,8 @@ public function unfollow(string $username) : \stdClass
  */
 public function sendDirectMessage(string $username, string $message): \stdClass
 {
-	return $this->request(
+	return $this->post_json(
 		'direct_messages/events/new',
-		'POSTJSON',
 		['event' => [
 			'type' => 'message_create',
 			'message_create' => [
