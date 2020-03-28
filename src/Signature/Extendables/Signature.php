@@ -16,7 +16,7 @@ abstract class Signature
 	* @since 1.0
 	* @var string
 	*/
-  abstract protected $method;
+  public static $method;
 
 
 	/**
@@ -25,7 +25,7 @@ abstract class Signature
 	* @since 1.0
 	* @var string
 	*/
-  abstract protected $data;
+  protected $data;
 
 
 	/**
@@ -34,7 +34,7 @@ abstract class Signature
 	* @since 1.0
 	* @var string
 	*/
-  abstract protected $key;
+  protected $key;
 
 
 	/**
@@ -43,7 +43,7 @@ abstract class Signature
 	* @since 1.0
 	* @var string
 	*/
-  abstract protected $signature;
+  protected $signature;
 
 
 
@@ -56,7 +56,7 @@ abstract class Signature
    * @return self $this
    *
    */
-  abstract public function sign() : string;
+  abstract public function sign() : self;
 
 
 
@@ -83,6 +83,19 @@ abstract class Signature
    *
    */
   abstract public function getSignature() : string;
+
+
+
+  /**
+   * set the Signature string
+   *
+   * @since 1.0
+   *
+   *
+   * @return string self::$Signature
+   *
+   */
+  abstract protected function setSignature( $data );
 
 
 

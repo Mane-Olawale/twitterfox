@@ -15,7 +15,7 @@ abstract class Token
   * @since 1.0
   * @var string
   */
-  final protected $token = "";
+  protected $token = "";
 
 
   /**
@@ -24,7 +24,7 @@ abstract class Token
   * @since 1.0
   * @var string
   */
-  final protected $secret = "";
+  protected $secret = "";
 
 
 
@@ -76,7 +76,7 @@ abstract class Token
    */
   final protected function setSecret( $secret ) : self
   {
-    $this->token = $secret;
+    $this->secret = $secret;
     return $this;
   }
 

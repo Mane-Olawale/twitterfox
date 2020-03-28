@@ -18,7 +18,7 @@ class HmacSha1 extends Signature
 	* @since 1.0
 	* @var string
 	*/
-  protected $method = "HMAC_SHA1";
+  public static $method = "HMAC-SHA1";
 
 
 	/**
@@ -78,9 +78,8 @@ class HmacSha1 extends Signature
    * @param array $key data to send with request
    *
    */
-  function __construct( string $method, string $data, string $key )
+  function __construct( string $data, string $key )
   {
-      $this->method = $method;
       $this->data = $data;
       $this->key = $key;
   }
@@ -132,7 +131,7 @@ class HmacSha1 extends Signature
 
 
  /**
-  * Get the Signature key
+  * Check if the signature is signed
   *
   * @since 1.0
   *
@@ -156,9 +155,24 @@ class HmacSha1 extends Signature
    * @return string self::$Signature
    *
    */
-  abstract function getSignature() : string
+  public function getSignature() : string
   {
     return $this->signature;
+  }
+
+
+
+  /**
+   * set the Signature string
+   *
+   * @since 1.0
+   *
+   *
+   * @return string self::$Signature
+   *
+   */
+  protected function setSignature( $data ){
+    $this->signature = $data;
   }
 
 
@@ -172,7 +186,7 @@ class HmacSha1 extends Signature
    * @return string self::$Data
    *
    */
-  abstract function getData() : string
+  public function getData() : string
   {
     return $this->data;
   }
@@ -188,9 +202,9 @@ class HmacSha1 extends Signature
    * @return string self::$method
    *
    */
-  abstract function getMethod() : string
+  public function getMethod() : string
   {
-    return $this->method;
+    return static::$method;
   }
 
 
