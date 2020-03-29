@@ -112,6 +112,30 @@ class TwitterFox
 
 
   /**
+   * Request post json method of TwitterFox
+   *
+   * @since 1.0
+   *
+   *
+   * @param array $endpoint
+   * @param array $data
+   * @param array $files
+   * @return stdClass $request->getResponseData()
+   *
+   */
+  public function postJson( string $endpoint, array $data = [], array $files = [])
+  {
+
+    return $this->request( 'POSTJSON', $endpoint, $data, $files);
+
+
+  }
+
+
+
+
+
+  /**
    * Request get method of TwitterFox
    *
    * @since 1.0
@@ -131,7 +155,7 @@ class TwitterFox
 
   }
 
-    ///////////////////////  PREDEFINED REQUESTS   /////////////////////////
+    //////////////////////  REQUESTS HANDLER METHODS   ////////////////////////
 
 
 
@@ -194,12 +218,12 @@ public function unfollow(string $username) : \stdClass
  */
 public function sendDirectMessage(string $username, string $message): \stdClass
 {
-	return $this->post_json(
+	return $this->postJson(
 		'direct_messages/events/new',
 		['event' => [
 			'type' => 'message_create',
 			'message_create' => [
-				'target' => ['recipient_id' => $this->loadUserInfo($username)->id_str],
+				'target' => ['recipient_id' => $this->get('users/show', ["screen_name" => $username])->id_str],
 				'message_data' => ['text' => $message],
 			],
 		]]
