@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package TwitterFox
+ *
+ * @author Ilesanmi Olawale Adedotun
+ *
+ *
+ *
+ */
+
 namespace TwitterFox;
 
 

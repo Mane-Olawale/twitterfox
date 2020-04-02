@@ -209,5 +209,108 @@ class Utility
 
 
 
+  /**
+  * This generate a human readable count
+  *
+  * @since 1.0
+  *
+  * @param int $count
+  * @param int|bool $round Maximum length of the string
+  *
+  */
+	public static function humanReadableCount( int $count, $round = 1, array $unitTemp = [
+		'K' => 'K',
+		'M' => 'M',
+		'B' => 'B',
+		'T' => 'T'
+		] ) : string
+	{
+		  $unit = '';
+
+		  if ($count / 1000 > 0){
+		     $count /= 1000;
+		     $unit = $unitTemp['K'];
+		  }
+
+		  if ($count / 1000 > 0){
+		     $count /= 1000;
+		     $unit = $unitTemp['M'];
+		  }
+
+		  if ($count / 1000 > 0){
+		     $count /= 1000;
+		     $unit = $unitTemp['B'];
+		  }
+
+		  if ($count / 1000 > 0){
+		     $count /= 1000;
+		     $unit = $unitTemp['T'];
+		  }
+
+			if ($round !== false && is_int($round)){
+				$count = round($count, $round);
+			}
+
+		  $result = [
+				"count" => $count,
+				"unit" => $unit
+			];
+
+			$result = json_encode($result);
+
+			$result = @json_decode($result, false);
+
+
+			return $result;
+	}
+
+
+
+  /**
+  * This generate a human readable count
+  *
+  * @since 1.0
+  *
+  * @param string $url
+  *
+  */
+	public static function httpGetContents( string $url, array $options = []) : string
+	{
+
+			$ch = curl_init();
+
+	    if(!isset($options[CURLOPT_TIMEOUT])) {
+	      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	    }
+
+	    if(!isset($options[CURLOPT_RETURNTRANSFER])) {
+	      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 	TRUE);
+	    }
+
+			curl_setopt($ch, CURLOPT_URL, $url);
+
+			if (is_array($options) && $options ){
+
+				foreach ($options as $key => $value) {
+					curl_setopt($ch, $key, 	$value);
+				}
+
+			}
+
+	    if(!isset($options[CURLOPT_USERAGENT])) {
+
+	      curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['SERVER_NAME']);
+
+	    }
+
+			if(FALSE === ($retval = curl_exec($ch))) {
+			  die(curl_error($ch));
+			} else {
+			  return $retval;
+			}
+	}
+
+
+
 
 }
