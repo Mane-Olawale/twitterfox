@@ -114,7 +114,7 @@ class User
 
     foreach ($this->load()->derived->locations as $value) {
 
-      $this->$locationObjects[] = new location($value);
+      $this->$locationObjects[] = new Location($value);
 
     }
 
@@ -135,9 +135,11 @@ class User
     }
 
     if (isset($this->load()->entities->description->media)){
+
         foreach ($this->load()->entities->description->media as $value) {
-          $this->desc_media_entities[] = new Entities\Media( $this->TwitterFox(), $value);
+          $this->desc_media_entities[] = new Entities\Media::MediaFactory($value->type, $this->TwitterFox(), $value);
         }
+
     }
 
     if (isset($this->load()->entities->description->user_mentions)){

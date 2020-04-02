@@ -6,12 +6,12 @@ use TwitterFox\TwitterFox as TF;
 
 
 /**
- * This class holds the url Entities object after been Fetched.
+ * This class holds the mentions Entities object after been Fetched.
  *
  * @since 1.0
  *
  */
-class Url
+class Mentions
 {
 
 
@@ -48,7 +48,6 @@ class Url
 
 
   ///////////////////////////   GETTERS   /////////////////////////////////
-
 
 
 

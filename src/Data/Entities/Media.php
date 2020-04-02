@@ -1,17 +1,18 @@
 <?php
 
+
 namespace TwitterFox\Data\Entities;
 
 use TwitterFox\TwitterFox as TF;
 
 
 /**
- * This class holds the url Entities object after been Fetched.
+ * This class is the abstract media Entities class for all media parents.
  *
  * @since 1.0
  *
  */
-class Url
+abstract class Media
 {
 
 
@@ -22,7 +23,7 @@ class Url
 	* @since 1.0
 	* @var \stdClass
 	*/
-  public $load = null;
+  private $load = null;
 
 
 
@@ -32,7 +33,7 @@ class Url
 	* @since 1.0
 	* @var TF
 	*/
-  public $TwitterFox = null;
+  private $TwitterFox = null;
 
 
 
@@ -47,10 +48,33 @@ class Url
 
 
 
+
+
+
+  /**
+   * Get the user payload.
+   *
+   * @since 1.0
+   *
+   *
+   * @param string $type to detect the media type
+   * @param TF $TwitterFox the twitterfox window
+   * @param \stdClass $load the twitterfox window
+   *
+   *
+   * @return VideoMedia|PhotoMedia|GifMedia  $load the twitterfox window
+   *
+   */
+  public function MediaFactory(string $type, TF $TwitterFox, \stdClass $load)
+  {
+    $this->checkAndThrow();
+
+    return $load;
+
+  }
+
+
   ///////////////////////////   GETTERS   /////////////////////////////////
-
-
-
 
 
 
@@ -63,7 +87,7 @@ class Url
    * @return stdClass $this->load
    *
    */
-  public function load() : stdClass
+  public function load() : \stdClass
   {
     $this->checkAndThrow();
 
