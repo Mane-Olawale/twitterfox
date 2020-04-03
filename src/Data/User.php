@@ -5,6 +5,8 @@ namespace TwitterFox\Data;
 
 use TwitterFox\TwitterFox as TF;
 
+use TwitterFox\Utility\Utility;
+
 
 /**
  * This class holds the user object after been Fetched.
@@ -112,14 +114,21 @@ class User
 
     $this->load = $load;
 
-    foreach ($this->load()->derived->locations as $value) {
+    if (isset($this->load()->derived)){
+      foreach ($this->load()->derived->locations as $value) {
 
-      $this->$locationObjects[] = new Location($value);
+        $this->$locationObjects[] = new Location($value);
 
+      }
     }
 
-    foreach ($this->load()->entities->url->urls as $value) {
-      $this->url_entities[] = new Entities\Url( $this->TwitterFox(), $value);
+
+    if (isset($this->load()->entities->url)){
+
+      foreach ($this->load()->entities->url->urls as $value) {
+        $this->url_entities[] = new Entities\Url( $this->TwitterFox(), $value);
+      }
+
     }
 
     if (isset($this->load()->entities->description->urls)){
@@ -129,15 +138,19 @@ class User
     }
 
     if (isset($this->load()->entities->description->hashtags)){
+
         foreach ($this->load()->entities->description->hashtags as $value) {
+
           $this->desc_hashtags_entities[] = new Entities\Hashtags( $this->TwitterFox(), $value);
+
         }
+
     }
 
     if (isset($this->load()->entities->description->media)){
 
         foreach ($this->load()->entities->description->media as $value) {
-          $this->desc_media_entities[] = new Entities\Media::MediaFactory($value->type, $this->TwitterFox(), $value);
+          $this->desc_media_entities[] = Entities\Media::MediaFactory($value->type, $this->TwitterFox(), $value);
         }
 
     }
@@ -159,6 +172,30 @@ class User
   }
 
 
+
+
+
+
+  /**
+   * Check if the object is properly initialised
+   *
+   * @since 1.0
+   *
+   *
+   * @throw payloadExeption string $type to detect the media type
+   *
+   *
+   */
+  public function checkAndThrow()
+  {
+
+    if (!(!is_null($this->load) && $this->load instanceof \stdClass)){
+      die ("Wrong payload data loaded to the object.");
+    }
+
+  }
+
+
 ///////////////////////////   GETTERS   /////////////////////////////////
 
 
@@ -172,7 +209,7 @@ class User
  * @return stdClass $this->load
  *
  */
-public function load() : stdClass
+public function load() : \stdClass
 {
   $this->checkAndThrow();
 
@@ -188,7 +225,7 @@ public function load() : stdClass
  * @since 1.0
  *
  *
- * @return stdClass $this->TwitterFox
+ * @return TF $this->TwitterFox
  *
  */
 public function TwitterFox() : TF

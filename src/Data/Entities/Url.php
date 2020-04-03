@@ -47,6 +47,30 @@ class Url
 
 
 
+
+
+
+  /**
+   * Check if the object is properly initialised
+   *
+   * @since 1.0
+   *
+   *
+   * @throw payloadExeption string $type to detect the media type
+   *
+   *
+   */
+  public function checkAndThrow()
+  {
+
+    if (!(!is_null($this->load) && $this->load instanceof \stdClass)){
+      die ("Wrong payload data loaded to the object.");
+    }
+
+  }
+
+
+
   ///////////////////////////   GETTERS   /////////////////////////////////
 
 

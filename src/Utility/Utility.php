@@ -223,26 +223,26 @@ class Utility
 		'M' => 'M',
 		'B' => 'B',
 		'T' => 'T'
-		] ) : string
+		] )
 	{
 		  $unit = '';
 
-		  if ($count / 1000 > 0){
+		  if ($count / 1000 > 0.99){
 		     $count /= 1000;
 		     $unit = $unitTemp['K'];
 		  }
 
-		  if ($count / 1000 > 0){
+		  if ($count / 1000 > 0.99){
 		     $count /= 1000;
 		     $unit = $unitTemp['M'];
 		  }
 
-		  if ($count / 1000 > 0){
+		  if ($count / 1000 > 0.99){
 		     $count /= 1000;
 		     $unit = $unitTemp['B'];
 		  }
 
-		  if ($count / 1000 > 0){
+		  if ($count / 1000 > 0.99){
 		     $count /= 1000;
 		     $unit = $unitTemp['T'];
 		  }

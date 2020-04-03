@@ -22,7 +22,7 @@ class Request
 	* @since 1.0
 	* @var object
 	*/
-  protected $responseData = '';
+  protected $responseData = null;
 
 
 

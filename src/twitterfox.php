@@ -15,6 +15,7 @@ use TwitterFox\Signature\HmacSha1;
 use TwitterFox\Token\ConsumerToken;
 use TwitterFox\Token\AccessToken;
 use TwitterFox\Request\Request;
+use TwitterFox\Actions;
 
 /**
  * This is the Main TwitterFox Object, this Class is The
@@ -50,6 +51,15 @@ class TwitterFox
   public $access = null;
 
 
+  /**
+  *This the property that holds users action object
+  * @since 1.0
+  *
+  * @var Users
+  */
+  private $UsersActions = null;
+
+
   public function __construct(string $consumerToken, string $consumerTokenSecret, string $accessToken = null, string $accessTokenSecret = null)
   {
 
@@ -59,6 +69,8 @@ class TwitterFox
     if ( $accessToken && $accessTokenSecret ){
       $this->setAccess( new AccessToken($accessToken, $accessTokenSecret) );
     }
+
+    $this->UsersAction = new Actions\Users($this);
 
 
   }
@@ -164,7 +176,26 @@ class TwitterFox
 
   }
 
-    //////////////////////  REQUESTS HANDLER METHODS   ////////////////////////
+    //////////////////////  ACTIONS   ////////////////////////
+
+
+
+
+/**
+ * Search tweeets
+ *
+ * @since 1.0
+ *
+ *
+ * @param array $query
+ * @return Actions\Users $statuses
+ *
+ */
+public function users()
+{
+	return $this->UsersAction;
+}
+
 
 
 

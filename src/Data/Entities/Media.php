@@ -52,6 +52,30 @@ abstract class Media
 
 
   /**
+   * Check if the object is properly initialised
+   *
+   * @since 1.0
+   *
+   *
+   * @throw payloadExeption string $type to detect the media type
+   *
+   *
+   */
+  public function checkAndThrow()
+  {
+
+    if (!(!is_null($this->load) && $this->load instanceof \stdClass)){
+      die ("Wrong payload data loaded to the object.");
+    }
+
+  }
+
+
+
+
+
+
+  /**
    * Get the user payload.
    *
    * @since 1.0
@@ -65,9 +89,8 @@ abstract class Media
    * @return VideoMedia|PhotoMedia|GifMedia  $load the twitterfox window
    *
    */
-  public function MediaFactory(string $type, TF $TwitterFox, \stdClass $load)
+  public static function MediaFactory(string $type, TF $TwitterFox, \stdClass $load)
   {
-    $this->checkAndThrow();
 
     return $load;
 
